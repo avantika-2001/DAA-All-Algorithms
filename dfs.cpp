@@ -1,25 +1,18 @@
-#include<iostream>
-#include<queue>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
-void bfs(int a[][7], int start, int n)
+void dfs(int G[][7], int start, int n)
 {
-    vector<bool>visited;
-    visited.resize(n, false);
-    queue<int>q;
-    cout << start << endl;
-    visited[start] = true;
-    q.push(start);
-    while (!q.empty())
+    static bool visited[7] = {false};
+    if (visited[start] == false)
     {
-        int j=q.pop();
-        for (int i = 1; i < n; i++)
+        cout << start << endl;
+        visited[start] = true;
+        for (int v = 1; v < n; v++)
         {
-            if (visited[i] != true && a[j][i] == 1)
+            if (visited[v] != true && G[start][v] == 1)
             {
-                cout << i << endl;
-                visited[i] = true;
-                q.push(i);
+                dfs(G, v, n);
             }
         }
     }
@@ -33,7 +26,5 @@ int main()
                     {0,0,1,1,0,1,1},
                     {0,0,0,0,1,0,0},
                     {0,0,0,0,1,0,0} };
-    bfs(G, 4, 7);
-
-    return 0;
+    dfs(G, 4, 7);
 }
